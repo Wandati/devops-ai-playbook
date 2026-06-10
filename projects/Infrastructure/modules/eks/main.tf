@@ -25,10 +25,10 @@ resource "aws_iam_role_policy_attachment" "cluster_policy" {
 resource "aws_eks_cluster" "eks" {
   name     = var.cluster_name
   role_arn = aws_iam_role.eks_cluster_role.arn
-  version  = "1.34"
+  version  = var.kubernetes_version
 
   vpc_config {
-    subnet_ids = var.subnet_ids
+    subnet_ids              = var.subnet_ids
     endpoint_public_access  = true
     endpoint_private_access = false
   }
@@ -86,7 +86,7 @@ resource "aws_iam_role_policy_attachment" "ecr_policy" {
 # Node Group
 
 resource "aws_eks_node_group" "node_group" {
-  cluster_name    = aws_eks_cluster.eks.name 
+  cluster_name    = aws_eks_cluster.eks.name
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = var.subnet_ids
@@ -106,7 +106,7 @@ resource "aws_eks_node_group" "node_group" {
   }
 
   tags = {
-    Terraform   = "true"
+    Terraform = "true"
   }
 
 

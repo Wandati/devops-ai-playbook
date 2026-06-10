@@ -3,6 +3,11 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "kubernetes_version" {
+  description = "Kubernetes version for the EKS control plane"
+  type        = string
+}
+
 variable "subnet_ids" {
   description = "List of subnet IDs where nodes will be deployed"
   type        = list(string)
